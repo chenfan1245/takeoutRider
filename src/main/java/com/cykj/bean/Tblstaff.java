@@ -1,17 +1,26 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("工作人员类")
 public class Tblstaff {
-
+  @ApiModelProperty(value = "工作人员id")
   private long staffid;
+  @ApiModelProperty(value = "角色id")
   private long roleid;
+  @ApiModelProperty(value = "工作人员帐号")
   private String staffacc;
+  @ApiModelProperty(value = "工作人员密码")
   private String staffpwd;
+  @ApiModelProperty(value = "工作人员联系电话")
   private String stafftel;
+  @ApiModelProperty(value = "员工身份证正面")
   private String idcardfront;
+  @ApiModelProperty(value = "员工身份证背面")
   private String idcardback;
+  @ApiModelProperty(value = "员工状态（启用 / 禁用）")
   private String staffstate;
-  private String staffname;
 
 
   public long getStaffid() {
@@ -83,15 +92,6 @@ public class Tblstaff {
 
   public void setStaffstate(String staffstate) {
     this.staffstate = staffstate;
-  }
-
-
-  public String getStaffname() {
-    return staffname;
-  }
-
-  public void setStaffname(String staffname) {
-    this.staffname = staffname;
   }
 
 }

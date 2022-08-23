@@ -1,19 +1,37 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("收获地址类")
 public class Tblrecaddress {
-
+  @ApiModelProperty(value = "地址id")
   private long addressid;
+  @ApiModelProperty(value = "用户id")
   private long userid;
+  @ApiModelProperty(value = "收货人手机号")
   private String rectel;
+  @ApiModelProperty(value = "收获地址")
   private String recaddress;
+  @ApiModelProperty(value = "门牌号")
   private String housenum;
+  @ApiModelProperty(value = "收货人姓名")
   private String recname;
-  private String isdefault;
+  @ApiModelProperty(value = "备注（家 / 公司 / 学校）")
   private String info;
-  private String longitude;
-  private String latitude;
+  @ApiModelProperty(value = "默认地址")
+  private String isdefault;
 
+  public String getIsdefault() {
+    return isdefault;
+  }
+
+  public void setIsdefault(String isdefault) {
+    this.isdefault = isdefault;
+  }
+
+  public Tblrecaddress() {
+  }
 
   public long getAddressid() {
     return addressid;
@@ -69,15 +87,6 @@ public class Tblrecaddress {
   }
 
 
-  public String getIsdefault() {
-    return isdefault;
-  }
-
-  public void setIsdefault(String isdefault) {
-    this.isdefault = isdefault;
-  }
-
-
   public String getInfo() {
     return info;
   }
@@ -86,22 +95,17 @@ public class Tblrecaddress {
     this.info = info;
   }
 
-
-  public String getLongitude() {
-    return longitude;
+  @Override
+  public String toString() {
+    return "Tblrecaddress{" +
+            "addressid=" + addressid +
+            ", userid=" + userid +
+            ", rectel='" + rectel + '\'' +
+            ", recaddress='" + recaddress + '\'' +
+            ", housenum='" + housenum + '\'' +
+            ", recname='" + recname + '\'' +
+            ", info='" + info + '\'' +
+            ", isdefault='" + isdefault + '\'' +
+            '}';
   }
-
-  public void setLongitude(String longitude) {
-    this.longitude = longitude;
-  }
-
-
-  public String getLatitude() {
-    return latitude;
-  }
-
-  public void setLatitude(String latitude) {
-    this.latitude = latitude;
-  }
-
 }

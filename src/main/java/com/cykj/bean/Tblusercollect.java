@@ -1,12 +1,19 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("用户收藏类")
 public class Tblusercollect {
-
+  @ApiModelProperty(value = "用户收藏id")
   private long id;
+  @ApiModelProperty(value = "用户id")
   private long userid;
+  @ApiModelProperty(value = "商家id")
   private long shopid;
 
+  public Tblusercollect() {
+  }
 
   public long getId() {
     return id;

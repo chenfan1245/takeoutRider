@@ -1,12 +1,19 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("商品类型类")
 public class Tblgoodstype {
-
+  @ApiModelProperty(value = "类型id")
   private long typeid;
+  @ApiModelProperty(value = "类型名称（目前共20种）")
   private String typename;
+  @ApiModelProperty(value = "类型图标")
   private String typeimg;
 
+  public Tblgoodstype() {
+  }
 
   public long getTypeid() {
     return typeid;

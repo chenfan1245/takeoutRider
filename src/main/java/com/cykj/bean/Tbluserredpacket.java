@@ -1,13 +1,21 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("用户红包类")
 public class Tbluserredpacket {
-
+  @ApiModelProperty(value = "用户红包类的id")
   private long id;
+  @ApiModelProperty(value = "红包id")
   private long redpacketid;
+  @ApiModelProperty(value = "用户id")
   private long userid;
+  @ApiModelProperty(value = "领取红包日期")
   private java.sql.Date receivedate;
+  @ApiModelProperty(value = "红包过期的日期")
   private java.sql.Date invaliddate;
+  @ApiModelProperty(value = "红包状态（未使用 / 已使用 / 已失效）")
   private String state;
 
 

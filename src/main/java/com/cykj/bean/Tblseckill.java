@@ -1,16 +1,27 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("商品秒杀类")
 public class Tblseckill {
-
+  @ApiModelProperty(value = "秒杀id")
   private long seckill;
+  @ApiModelProperty(value = "商品id")
   private long goodsid;
+  @ApiModelProperty(value = "开始时间")
   private java.sql.Time opentime;
+  @ApiModelProperty(value = "结束时间")
   private java.sql.Time endtime;
+  @ApiModelProperty(value = "秒杀价格")
   private double seckillprice;
+  @ApiModelProperty(value = "秒杀数量")
   private long seckillnum;
+  @ApiModelProperty(value = "秒杀状态")
   private String seckillstate;
 
+  public Tblseckill() {
+  }
 
   public long getSeckill() {
     return seckill;
@@ -65,7 +76,6 @@ public class Tblseckill {
     this.seckillnum = seckillnum;
   }
 
-
   public String getSeckillstate() {
     return seckillstate;
   }
@@ -73,5 +83,4 @@ public class Tblseckill {
   public void setSeckillstate(String seckillstate) {
     this.seckillstate = seckillstate;
   }
-
 }

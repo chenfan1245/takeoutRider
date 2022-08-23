@@ -1,17 +1,27 @@
 package com.cykj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("系统消息类")
 public class Tblnotice {
-
+  @ApiModelProperty(value = "系统消息id")
   private long noticeid;
+  @ApiModelProperty(value = "发送者id")
   private long senderid;
-  private String title;
+  @ApiModelProperty(value = "系统消息的内容")
   private String noticecontent;
+  @ApiModelProperty(value = "接收者id")
   private long receiverid;
+  @ApiModelProperty(value = "角色id")       // 用于区分接收人是用户还是骑手还是商家
   private long roleid;
-  private java.sql.Date noticetime;
-  private long noticestate;
+  @ApiModelProperty(value = "发送时间")
+  private String noticetime;
+  @ApiModelProperty(value = "系统消息状态（未读 / 已读）")
+  private String noticestate;
 
+  public Tblnotice() {
+  }
 
   public long getNoticeid() {
     return noticeid;
@@ -28,15 +38,6 @@ public class Tblnotice {
 
   public void setSenderid(long senderid) {
     this.senderid = senderid;
-  }
-
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
   }
 
 
@@ -57,7 +58,6 @@ public class Tblnotice {
     this.receiverid = receiverid;
   }
 
-
   public long getRoleid() {
     return roleid;
   }
@@ -66,22 +66,19 @@ public class Tblnotice {
     this.roleid = roleid;
   }
 
-
-  public java.sql.Date getNoticetime() {
+  public String getNoticetime() {
     return noticetime;
   }
 
-  public void setNoticetime(java.sql.Date noticetime) {
+  public void setNoticetime(String noticetime) {
     this.noticetime = noticetime;
   }
 
-
-  public long getNoticestate() {
+  public String getNoticestate() {
     return noticestate;
   }
 
-  public void setNoticestate(long noticestate) {
+  public void setNoticestate(String noticestate) {
     this.noticestate = noticestate;
   }
-
 }
