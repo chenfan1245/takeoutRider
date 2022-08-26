@@ -66,14 +66,6 @@ public class Tblgoods {
   private String legalpersonname;
   @ApiModelProperty(value = "法人身份证号")
   private String legalpersonid;
-  /* 招牌菜 */
-  @ApiModelProperty(value = "招牌菜id")
-  private long specialityid;
-  /* 商家商品分类类型（即点餐界面的左侧菜单栏） */
-  @ApiModelProperty(value = "店铺商品界面左侧导航栏的名称 或 店铺名称")
-  private String name;
-  @ApiModelProperty(value = "父级id（用于将导航栏名称归属于哪个店铺）")
-  private long parentid;
   /* 商品类型 */
   @ApiModelProperty(value = "类型名称（目前共20种）")
   private String typename;
@@ -86,6 +78,49 @@ public class Tblgoods {
   private long orderid;
   @ApiModelProperty(value = "购买的商品数量")
   private long bugnum;
+
+  public Tblgoods() {
+  }
+
+  @Override
+  public String toString() {
+    return "商品{" +
+            "商品id=" + goodsid +
+            ", 商家id=" + shopid +
+            ", 类型id=" + typeid +
+            ", 商家商品类型id=" + shopgoodstypeid +
+            ", 商品名称='" + goodsname + '\'' +
+            ", 商品库存=" + goodsnum +
+            ", 商品价格=" + goodsprice +
+            ", 商品描述='" + goodsdescribe + '\'' +
+            ", 商品图片='" + goodsimg + '\'' +
+            ", 商品状态='" + goodsstate + '\'' +
+            ", 商品审核状态='" + auditstate + '\'' +
+            ", 月销量=" + monsales +
+            ", 角色id=" + roleid +
+            ", 店铺名称='" + shopname + '\'' +
+            ", 商家电话='" + shoptel + '\'' +
+            ", 开始营业时间=" + opentime +
+            ", 结束营业时间=" + endtime +
+            ", 商家密码='" + shoppwd + '\'' +
+            ", 商家地址='" + shopaddress + '\'' +
+            ", 营业执照='" + buslicense + '\'' +
+            ", 营业许可证='" + foodlicense + '\'' +
+            ", 店铺简介='" + shopinfo + '\'' +
+            ", 商家状态='" + shopstate + '\'' +
+            ", 店铺审核状态='" + shopAuditstate + '\'' +
+            ", 收入=" + income +
+            ", 销量=" + shopsales +
+            ", 评分=" + shopscore +
+            ", 法人姓名='" + legalpersonname + '\'' +
+            ", 法人身份证号='" + legalpersonid + '\'' +
+            ", 类型名称='" + typename + '\'' +
+            ", 类型图标='" + typeimg + '\'' +
+            ", 购物车购买商品id=" + id +
+            ", 订单id=" + orderid +
+            ", 购买数量=" + bugnum +
+            '}';
+  }
 
   public long getId() {
     return id;
@@ -109,11 +144,6 @@ public class Tblgoods {
 
   public void setBugnum(long bugnum) {
     this.bugnum = bugnum;
-  }
-
-
-
-  public Tblgoods() {
   }
 
   public double getShopsales() {
@@ -252,30 +282,6 @@ public class Tblgoods {
     this.legalpersonid = legalpersonid;
   }
 
-  public long getSpecialityid() {
-    return specialityid;
-  }
-
-  public void setSpecialityid(long specialityid) {
-    this.specialityid = specialityid;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public long getParentid() {
-    return parentid;
-  }
-
-  public void setParentid(long parentid) {
-    this.parentid = parentid;
-  }
-
   public String getTypename() {
     return typename;
   }
@@ -397,45 +403,5 @@ public class Tblgoods {
 
   public void setMonsales(long monsales) {
     this.monsales = monsales;
-  }
-
-  @Override
-  public String toString() {
-    return "商品{" +
-            "商品id=" + goodsid +
-            ", 商家id=" + shopid +
-            ", 类型id=" + typeid +
-            ", 左侧菜单栏的id=" + shopgoodstypeid +
-            ", 商品名称='" + goodsname + '\'' +
-            ", 商品库存=" + goodsnum +
-            ", 价格=" + goodsprice +
-            ", 商品详细='" + goodsdescribe + '\'' +
-            ", 商品图片='" + goodsimg + '\'' +
-            ", 商品状态='" + goodsstate + '\'' +
-            ", 商品审核状态='" + auditstate + '\'' +
-            ", 月销量=" + monsales +
-            ", 角色id=" + roleid +
-            ", 店铺名称='" + shopname + '\'' +
-            ", 商家电话='" + shoptel + '\'' +
-            ", 开始营业时间=" + opentime +
-            ", 结束营业时间=" + endtime +
-            ", 商家密码='" + shoppwd + '\'' +
-            ", 店铺地址='" + shopaddress + '\'' +
-            ", 营业执照='" + buslicense + '\'' +
-            ", 营业许可证='" + foodlicense + '\'' +
-            ", 店铺简介='" + shopinfo + '\'' +
-            ", 商家状态='" + shopstate + '\'' +
-            ", 店铺审核状态='" + shopAuditstate + '\'' +
-            ", 收入=" + income +
-            ", 店铺销量=" + shopsales +
-            ", 店铺评分=" + shopscore +
-            ", 法人姓名='" + legalpersonname + '\'' +
-            ", 法人身份证号='" + legalpersonid + '\'' +
-            ", 招牌菜id=" + specialityid +
-            ", 左侧菜单栏名称='" + name + '\'' +
-            ", 左侧菜单栏的父级id=" + parentid +
-            ", 类型名称='" + typename + '\'' +
-            ", 类型图标='" + typeimg + '\'' +
-            '}' + '\n';
   }
 }

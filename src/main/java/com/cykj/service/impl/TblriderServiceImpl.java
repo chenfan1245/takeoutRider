@@ -1,5 +1,6 @@
 package com.cykj.service.impl;
 
+import com.cykj.bean.Tblgoods;
 import com.cykj.bean.Tblorder;
 import com.cykj.bean.Tblrider;
 import com.cykj.mapper.TblriderMapper;
@@ -84,5 +85,16 @@ public class TblriderServiceImpl implements TblriderService {
     @Override
     public boolean updateMoney(double balance, long riderid) {
         return riderMapper.updateMoney(balance, riderid);
+    }
+    // 查询订单
+    @Override
+    public List<Tblorder> findOrder(long riderid, long orderid) {
+        return riderMapper.findOrder(riderid, orderid);
+    }
+
+    // 查询订单中的商品
+    @Override
+    public List<Tblgoods> findOrderDetail(long orderid) {
+        return riderMapper.findOrderDetail(orderid);
     }
 }

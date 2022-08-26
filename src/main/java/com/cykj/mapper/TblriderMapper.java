@@ -1,9 +1,6 @@
 package com.cykj.mapper;
 
-import com.cykj.bean.Tblcomment;
-import com.cykj.bean.Tblorder;
-import com.cykj.bean.Tblrider;
-import com.cykj.bean.Tbluser;
+import com.cykj.bean.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,5 +33,10 @@ public interface TblriderMapper {
     // 更新骑手收入
     boolean updateMoney(@Param("balance")double balance,
                         @Param("riderid")long riderid);
+    // 查询订单
+    List<Tblorder> findOrder(@Param("riderid")long riderid,
+                             @Param("orderid")long orderid);
+    // 查询订单中的商品
+    List<Tblgoods> findOrderDetail(@Param("orderid")long orderid);
 
 }

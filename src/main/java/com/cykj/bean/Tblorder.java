@@ -82,6 +82,8 @@ public class Tblorder {
   private String riderstate;
   @ApiModelProperty(value = "余额")
   private double balance;
+  @ApiModelProperty(value = "余额")
+  private List<Tblgoods> goodsList;
 
   @Override
   public String toString() {
@@ -120,7 +122,16 @@ public class Tblorder {
             ", 骑手审核状态='" + auditstate + '\'' +
             ", 骑手状态='" + riderstate + '\'' +
             ", 骑手收入=" + balance +
-            '}';
+            ", 商品列表=" + goodsList +
+            '}' + '\n';
+  }
+
+  public List<Tblgoods> getGoodsList() {
+    return goodsList;
+  }
+
+  public void setGoodsList(List<Tblgoods> goodsList) {
+    this.goodsList = goodsList;
   }
 
   public long getOrderid() {

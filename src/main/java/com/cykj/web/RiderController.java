@@ -1,10 +1,7 @@
 package com.cykj.web;
 
 import com.alibaba.fastjson.JSON;
-import com.cykj.bean.Tblorder;
-import com.cykj.bean.Tblrider;
-import com.cykj.bean.Tblshoppingcard;
-import com.cykj.bean.Tbluser;
+import com.cykj.bean.*;
 import com.cykj.service.TblriderService;
 import com.cykj.utils.SMSUtil;
 import io.swagger.annotations.ApiImplicitParam;
@@ -50,6 +47,22 @@ public class RiderController {
     public String findOrderFinish(long riderid){
         List<Tblorder> orderFinishList = tblriderService.findOrderFinish(riderid);
         String json = JSON.toJSONString(orderFinishList);
+        return json;
+    }
+
+    /* 点击订单，查询订单详细信息 */
+    @ApiOperation(value = "findOrder",notes = "查询骑手的取消单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "orderid",value = "点击订单，查看订单详细信息")
+    })
+    @RequestMapping(value="/findOrder",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
+    public String findOrder(long riderid, long orderid){
+        List<Tblorder> orderList = tblriderService.findOrder(riderid, orderid);
+        for (Tblorder tblorder : orderList) {
+            List<Tblgoods> goodsList = tblriderService.findOrderDetail(orderid);
+            tblorder.setGoodsList(goodsList);
+        }
+        String json = JSON.toJSONString(orderList);
         return json;
     }
 

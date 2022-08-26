@@ -22,7 +22,7 @@
         insert into tblrider(ridertel,riderpwd,roleid,riderstate,auditstate)
             values (#{ridertel},#{riderpwd},2,'5','14')
     </insert>
-    
+
     <!--修改密码-->
     <update id="updPwd">
         update tblrider set riderpwd = #{riderpwd} where ridertel = #{ridertel}
@@ -41,6 +41,7 @@
         select * from tblorder o
         inner join tblrider r on r.riderid = o.riderid
         inner join tblrecaddress a on a.addressid = o.addressid
+        inner join tblshop s on s.shopid = o.shopid
         where o.riderid = #{riderid} and o.orderstate = 32
     </select>
 
@@ -49,6 +50,7 @@
         select * from tblorder o
         inner join tblrider r on r.riderid = o.riderid
         inner join tblrecaddress a on a.addressid = o.addressid
+        inner join tblshop s on s.shopid = o.shopid
         where o.riderid = #{riderid} and o.orderstate in (76,77)
     </select>
 
@@ -60,5 +62,22 @@
     <update id="updateMoney">
         update tblrider set balance = #{balance} where riderid = #{riderid}
     </update>
+
+    <!-- 查询订单 -->
+    <select id="findOrder" resultType="com.cykj.bean.Tblorder">
+        SELECT * FROM tblorder o
+                              INNER JOIN tblshop b ON o.shopid = b.shopid
+                              INNER JOIN tblstate c ON o.orderstate = c.stateid
+                              INNER JOIN tblrecaddress d ON d.addressid = o.addressid
+                              INNER JOIN tblrider f ON f.riderid = o.riderid
+        where o.riderid = #{riderid} and o.orderid = #{orderid}
+    </select>
+    <!-- 查询订单中的商品 -->
+    <select id="findOrderDetail" resultType="com.cykj.bean.Tblgoods">
+        SELECT * FROM tblorder a
+                              INNER JOIN tblbuygoods b ON a.orderid = b.orderid
+                              INNER JOIN tblgoods c ON b.goodsid = c.goodsid
+        where a.orderid = #{orderid}
+    </select>
 
 </mapper>

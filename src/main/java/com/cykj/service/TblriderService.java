@@ -1,5 +1,6 @@
 package com.cykj.service;
 
+import com.cykj.bean.Tblgoods;
 import com.cykj.bean.Tblorder;
 import com.cykj.bean.Tblrider;
 import org.apache.ibatis.annotations.Param;
@@ -27,5 +28,9 @@ public interface TblriderService {
     Double findMoney(long riderid);
     // 更新骑手收入
     boolean updateMoney(double balance, long riderid);
+    // 查询订单
+    List<Tblorder> findOrder(long riderid, long orderid);
+    // 查询订单中的商品
+    List<Tblgoods> findOrderDetail(long orderid);
 
 }
