@@ -25,4 +25,20 @@
         and o.ordertime BETWEEN #{starttime} and #{endtime}
     </select>
 
+    <!-- 查询骑手已完成的订单 -->
+    <select id="findOrderFinish" resultType="com.cykj.bean.Tblorder">
+        select * from tblorder o
+        inner join tblrider r on r.riderid = o.riderid
+        inner join tblrecaddress a on a.addressid = o.addressid
+        where o.riderid = #{riderid} and o.orderstate = 32
+    </select>
+
+    <!-- 查询已取消单 -->
+    <select id="findOrderCancel" resultType="com.cykj.bean.Tblorder">
+        select * from tblorder o
+        inner join tblrider r on r.riderid = o.riderid
+        inner join tblrecaddress a on a.addressid = o.addressid
+        where o.riderid = #{riderid} and o.orderstate in (76,77)
+    </select>
+
 </mapper>

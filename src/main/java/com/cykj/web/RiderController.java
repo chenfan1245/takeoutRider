@@ -1,6 +1,7 @@
 package com.cykj.web;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.bean.Tblorder;
 import com.cykj.bean.Tblrider;
 import com.cykj.bean.Tblshoppingcard;
 import com.cykj.bean.Tbluser;
@@ -24,6 +25,30 @@ public class RiderController {
     HttpSession session;
     @Autowired
     private TblriderService tblriderService;
+
+    /* 查询骑手的取消单 */
+    @ApiOperation(value = "findOrderCancel",notes = "查询骑手的取消单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "riderid",value = "骑手id")
+    })
+    @RequestMapping(value="/findOrderCancel",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
+    public String findOrderCancel(long riderid){
+        List<Tblorder> orderCancelList = tblriderService.findOrderCancel(riderid);
+        String json = JSON.toJSONString(orderCancelList);
+        return json;
+    }
+
+    /* 查询骑手已完成的订单 */
+    @ApiOperation(value = "findOrderFinish",notes = "查询骑手已完成的订单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "riderid",value = "骑手id")
+    })
+    @RequestMapping(value="/findOrderFinish",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
+    public String findOrderFinish(long riderid){
+        List<Tblorder> orderFinishList = tblriderService.findOrderFinish(riderid);
+        String json = JSON.toJSONString(orderFinishList);
+        return json;
+    }
 
     /* 登录 */
     @ApiOperation(value = "login",notes = "登录方法")

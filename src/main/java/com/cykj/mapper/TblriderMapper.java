@@ -1,6 +1,7 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Tblcomment;
+import com.cykj.bean.Tblorder;
 import com.cykj.bean.Tblrider;
 import com.cykj.bean.Tbluser;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,5 +22,9 @@ public interface TblriderMapper {
     long findOrderNum(@Param("riderid")long riderid,
                       @Param("starttime")String starttime,
                       @Param("endtime")String endtime);
+    // 查询骑手已完成的订单
+    List<Tblorder> findOrderFinish(@Param("riderid")long riderid);
+    // 查询已取消单
+    List<Tblorder> findOrderCancel(@Param("riderid")long riderid);
 
 }
