@@ -12,12 +12,17 @@ import java.util.List;
 @Mapper
 public interface TblriderMapper {
     // 查询骑手信息
-    Tblrider findRider(@Param("ridertel")String ridertel);
+    Tblrider findRider(@Param("riderid")long riderid);
     // 骑手登录
     Tblrider login (@Param("ridertel")String ridertel,
                     @Param("riderpwd")String riderpwd);
     // 验证电话是否重复
     Tblrider checkTel(@Param("ridertel")String ridertel);
+    //  骑手注册
+    int enroll(@Param("ridertel")String ridertel,@Param("riderpwd")String riderpwd);
+    //  修改密码
+    int updPwd(@Param("ridertel")String ridertel,@Param("riderpwd")String riderpwd);
+
     // 查询骑手今日订单数
     long findOrderNum(@Param("riderid")long riderid,
                       @Param("starttime")String starttime,
@@ -26,5 +31,10 @@ public interface TblriderMapper {
     List<Tblorder> findOrderFinish(@Param("riderid")long riderid);
     // 查询已取消单
     List<Tblorder> findOrderCancel(@Param("riderid")long riderid);
+    // 查询骑手累计收入
+    Double findMoney(@Param("riderid")long riderid);
+    // 更新骑手收入
+    boolean updateMoney(@Param("balance")double balance,
+                        @Param("riderid")long riderid);
 
 }

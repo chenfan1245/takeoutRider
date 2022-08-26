@@ -5,7 +5,7 @@
 <mapper namespace="com.cykj.mapper.TblriderMapper">
     <!-- 查询骑手信息 -->
     <select id="findRider" resultType="com.cykj.bean.Tblrider">
-        select * from tblrider where riderstate != 6 and ridertel = #{ridertel}
+        select * from tblrider where riderstate != 6 and riderid = #{riderid}
     </select>
 
     <!-- 骑手登录 -->
@@ -16,6 +16,17 @@
     <select id="checkTel" resultType="com.cykj.bean.Tblrider">
         select * from  tblrider where ridertel = #{ridertel}
     </select>
+
+    <!--骑手注册-->
+    <insert id="enroll" >
+        insert into tblrider(ridertel,riderpwd,roleid,riderstate,auditstate)
+            values (#{ridertel},#{riderpwd},2,'5','14')
+    </insert>
+    
+    <!--修改密码-->
+    <update id="updPwd">
+        update tblrider set riderpwd = #{riderpwd} where ridertel = #{ridertel}
+    </update>
 
     <!-- 查询骑手今日订单数 -->
     <select id="findOrderNum" resultType="long">
@@ -40,5 +51,14 @@
         inner join tblrecaddress a on a.addressid = o.addressid
         where o.riderid = #{riderid} and o.orderstate in (76,77)
     </select>
+
+    <!-- 查询骑手累计收入 -->
+    <select id="findMoney" resultType="double">
+        select SUM(deliveryfee) from tblorder where riderid = #{riderid} and orderstate = 32
+    </select>
+    <!-- 更新骑手收入 -->
+    <update id="updateMoney">
+        update tblrider set balance = #{balance} where riderid = #{riderid}
+    </update>
 
 </mapper>

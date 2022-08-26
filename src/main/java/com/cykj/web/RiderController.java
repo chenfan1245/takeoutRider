@@ -6,13 +6,16 @@ import com.cykj.bean.Tblrider;
 import com.cykj.bean.Tblshoppingcard;
 import com.cykj.bean.Tbluser;
 import com.cykj.service.TblriderService;
+import com.cykj.utils.SMSUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,11 +59,55 @@ public class RiderController {
             @ApiImplicitParam(name = "usertel",value = "登录骑手电话"),
             @ApiImplicitParam(name = "userpwd",value = "登录骑手密码")
     })
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
     public String login(String ridertel,String riderpwd){
         Tblrider tblrider = tblriderService.login(ridertel,riderpwd);
         String json = JSON.toJSONString(tblrider);
         return json;
+    }
+    // 点击发送验证码
+    @RequestMapping("/sendMs")
+    public String sendMs (HttpServletRequest request, String ridertel){
+        if(ridertel!=null&&!ridertel.equals("")){
+            String s = SMSUtil.sendSMS(request,ridertel);
+            JSONObject json = (JSONObject)request.getSession().getAttribute("MsCode");
+            System.out.println(json.getString("Code"));
+            return json.getString("Code");
+        }else{
+            return "error";
+        }
+    }
+    // 点击注册
+    @RequestMapping("/enroll")
+    public String enroll( String ridertel, String riderpwd) {
+        /* 判断账号是否重复 */
+        if (tblriderService.checkTel(ridertel)){
+            return "3";
+        }else {
+            // 将骑手信息存入数据库、这里省略
+            if (tblriderService.enroll(ridertel,riderpwd)){
+                return "1";
+            }else {
+                return "2";
+            }
+        }
+    }
+
+    /* 忘记密码 */
+    @RequestMapping("/setPwd")
+    public String setPwd( String ridertel, String riderpwd){
+        System.out.println(ridertel);
+        /* 判断账号是否存在 */
+        if (!tblriderService.checkTel(ridertel)){
+            return "3";
+        }else {
+            // 修改骑手的密码
+            if (tblriderService.updPwd(ridertel,riderpwd)){
+                return "1";
+            }else {
+                return "2";
+            }
+        }
     }
 
     /* 查询骑手信息 */
@@ -69,18 +116,25 @@ public class RiderController {
             @ApiImplicitParam(name = "ridertel",value = "登录的骑手帐号")
     })
     @RequestMapping(value="/findRider",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
-    public String findRider(String ridertel){
+    public String findRider(long riderid){
         System.out.println("------显示骑手信息------");
-        Tblrider rider = tblriderService.findRider(ridertel);
-        // 系统当前日期
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-        String nowTime = formatter.format(date);
-        // 今日订单的数量
-        String a = nowTime + " 00:00:00";
-        String b = nowTime + " 23:59:59";
-        long ordernumNow = tblriderService.findOrderNum(rider.getRiderid(),a,b);
-        rider.setOrdernumNow(ordernumNow);
+        double riderMoney = tblriderService.findMoney(riderid);     // 查询骑手累计收入
+        double balance = Double.parseDouble(String.format("%.2f", riderMoney)); // 收入保留两位小数
+        boolean flag = tblriderService.updateMoney(balance, riderid);   // 更新骑手累计收入
+        Tblrider rider = tblriderService.findRider(riderid);    // 查询骑手信息
+        if (flag) {
+            // 系统当前日期
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String nowTime = formatter.format(date);
+            // 今日订单的数量
+            String a = nowTime + " 00:00:00";
+            String b = nowTime + " 23:59:59";
+            long ordernumNow = tblriderService.findOrderNum(rider.getRiderid(),a,b);
+            rider.setOrdernumNow(ordernumNow);  // 更新 今日订单量
+        } else {
+            return "0"; // 有误
+        }
 
         String json = JSON.toJSONString(rider);
         return json;

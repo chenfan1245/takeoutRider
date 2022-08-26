@@ -16,8 +16,8 @@ public class TblriderServiceImpl implements TblriderService {
 
     // 查询骑手信息
     @Override
-    public Tblrider findRider(String ridertel) {
-        return riderMapper.findRider(ridertel);
+    public Tblrider findRider(long riderid) {
+        return riderMapper.findRider(riderid);
     }
 
     // 骑手登录
@@ -28,8 +28,32 @@ public class TblriderServiceImpl implements TblriderService {
 
     // 验证电话是否重复
     @Override
-    public Tblrider checkTel(String ridertel) {
-        return riderMapper.checkTel(ridertel);
+    public boolean checkTel(String ridertel) {
+        Tblrider tblrider = riderMapper.checkTel(ridertel);
+        if (tblrider != null){
+            return true;
+        }
+        return false;
+    }
+
+    //  骑手注册
+    @Override
+    public boolean enroll(String ridertel, String riderpwd) {
+        int num = riderMapper.enroll(ridertel, riderpwd);
+        if (num > 0){
+            return true;
+        }
+        return false;
+    }
+
+    //  骑手修改密码
+    @Override
+    public boolean updPwd(String ridertel, String riderpwd) {
+        int num = riderMapper.updPwd(ridertel, riderpwd);
+        if (num > 0){
+            return true;
+        }
+        return false;
     }
 
     // 查询骑手今日订单数
@@ -48,5 +72,17 @@ public class TblriderServiceImpl implements TblriderService {
     @Override
     public List<Tblorder> findOrderCancel(long riderid) {
         return riderMapper.findOrderCancel(riderid);
+    }
+
+    // 查询骑手累计收入
+    @Override
+    public Double findMoney(long riderid) {
+        return riderMapper.findMoney(riderid);
+    }
+
+    // 更新骑手收入
+    @Override
+    public boolean updateMoney(double balance, long riderid) {
+        return riderMapper.updateMoney(balance, riderid);
     }
 }
