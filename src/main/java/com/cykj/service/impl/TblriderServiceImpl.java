@@ -16,8 +16,8 @@ public class TblriderServiceImpl implements TblriderService {
 
     // 查询骑手信息
     @Override
-    public Tblrider findRider(String ridertel) {
-        return riderMapper.findRider(ridertel);
+    public Tblrider findRider(long riderid) {
+        return riderMapper.findRider(riderid);
     }
 
     // 骑手登录
@@ -48,5 +48,17 @@ public class TblriderServiceImpl implements TblriderService {
     @Override
     public List<Tblorder> findOrderCancel(long riderid) {
         return riderMapper.findOrderCancel(riderid);
+    }
+
+    // 查询骑手累计收入
+    @Override
+    public Double findMoney(long riderid) {
+        return riderMapper.findMoney(riderid);
+    }
+
+    // 更新骑手收入
+    @Override
+    public boolean updateMoney(double balance, long riderid) {
+        return riderMapper.updateMoney(balance, riderid);
     }
 }

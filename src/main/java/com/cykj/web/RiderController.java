@@ -69,18 +69,25 @@ public class RiderController {
             @ApiImplicitParam(name = "ridertel",value = "登录的骑手帐号")
     })
     @RequestMapping(value="/findRider",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
-    public String findRider(String ridertel){
+    public String findRider(long riderid){
         System.out.println("------显示骑手信息------");
-        Tblrider rider = tblriderService.findRider(ridertel);
-        // 系统当前日期
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-        String nowTime = formatter.format(date);
-        // 今日订单的数量
-        String a = nowTime + " 00:00:00";
-        String b = nowTime + " 23:59:59";
-        long ordernumNow = tblriderService.findOrderNum(rider.getRiderid(),a,b);
-        rider.setOrdernumNow(ordernumNow);
+        double riderMoney = tblriderService.findMoney(riderid);     // 查询骑手累计收入
+        double balance = Double.parseDouble(String.format("%.2f", riderMoney)); // 收入保留两位小数
+        boolean flag = tblriderService.updateMoney(balance, riderid);   // 更新骑手累计收入
+        Tblrider rider = tblriderService.findRider(riderid);    // 查询骑手信息
+        if (flag) {
+            // 系统当前日期
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String nowTime = formatter.format(date);
+            // 今日订单的数量
+            String a = nowTime + " 00:00:00";
+            String b = nowTime + " 23:59:59";
+            long ordernumNow = tblriderService.findOrderNum(rider.getRiderid(),a,b);
+            rider.setOrdernumNow(ordernumNow);  // 更新 今日订单量
+        } else {
+            return "0"; // 有误
+        }
 
         String json = JSON.toJSONString(rider);
         return json;

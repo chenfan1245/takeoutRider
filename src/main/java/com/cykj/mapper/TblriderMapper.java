@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface TblriderMapper {
     // 查询骑手信息
-    Tblrider findRider(@Param("ridertel")String ridertel);
+    Tblrider findRider(@Param("riderid")long riderid);
     // 骑手登录
     Tblrider login (@Param("ridertel")String ridertel,
                     @Param("riderpwd")String riderpwd);
@@ -26,5 +26,10 @@ public interface TblriderMapper {
     List<Tblorder> findOrderFinish(@Param("riderid")long riderid);
     // 查询已取消单
     List<Tblorder> findOrderCancel(@Param("riderid")long riderid);
+    // 查询骑手累计收入
+    Double findMoney(@Param("riderid")long riderid);
+    // 更新骑手收入
+    boolean updateMoney(@Param("balance")double balance,
+                        @Param("riderid")long riderid);
 
 }
