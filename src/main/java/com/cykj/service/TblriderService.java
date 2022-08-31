@@ -32,5 +32,6 @@ public interface TblriderService {
     List<Tblorder> findOrder(long riderid, long orderid);
     // 查询订单中的商品
     List<Tblgoods> findOrderDetail(long orderid);
+    boolean riderIdentity(String ridername,String rideridcard,String idcardfront,String idcardback,String healthcard);
 
 }

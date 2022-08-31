@@ -79,5 +79,11 @@
                               INNER JOIN tblgoods c ON b.goodsid = c.goodsid
         where a.orderid = #{orderid}
     </select>
+    <!--更新骑手认证的信息-->
+    <update id="riderIdentity" parameterType="com.cykj.bean.Tblrider">
+              update tblrider set rideridcard =#{rideridcard} ,  idcardfront =#{idcardfront},
+              idcardback =#{idcardback} ,healthcard =#{healthcard}
+              where ridername = #{ridername}
+    </update>
 
 </mapper>

@@ -38,5 +38,11 @@ public interface TblriderMapper {
                              @Param("orderid")long orderid);
     // 查询订单中的商品
     List<Tblgoods> findOrderDetail(@Param("orderid")long orderid);
+    //更新骑手认证信息
+    int riderIdentity(@Param("ridername")String ridername,
+                           @Param("rideridcard")String rideridcard,
+                           @Param("idcardfront")String  idcardfront,
+                           @Param("idcardback")String idcardback,
+                           @Param("healthcard")String healthcard);
 
 }

@@ -97,4 +97,17 @@ public class TblriderServiceImpl implements TblriderService {
     public List<Tblgoods> findOrderDetail(long orderid) {
         return riderMapper.findOrderDetail(orderid);
     }
+    //更新骑手信息
+    @Override
+    public boolean riderIdentity(String ridername, String rideridcard, String idcardfront, String idcardback, String healthcard) {
+        int num =riderMapper.riderIdentity(ridername,rideridcard,idcardfront,idcardback,healthcard);
+        if(num>0){
+            return true;
+        }else {
+            return false;
+
+        }
+    }
+
+
 }
